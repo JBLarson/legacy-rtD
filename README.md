@@ -1,4 +1,4 @@
-# rtD v1.0
+# rtD v2.1
 Real-time Derivative model. ©2020 Jerold Larson. All Rights Reserved.
 
 
@@ -23,7 +23,7 @@ Adjust and update the GUI to manipulate the visual.
 <br><br>
 
 
-[<img src="https://smsuite.files.wordpress.com/2020/07/v1.0_og.png?w=1024">](http://smsuite.files.wordpress.com/)
+[<img src="https://smsuite.files.wordpress.com/2020/07/screen-shot-2020-07-21-at-7.59.50-pm.png?w=750">](http://smsuite.files.wordpress.com/)
 
 
 
