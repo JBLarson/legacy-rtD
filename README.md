@@ -1,22 +1,12 @@
-# rtD v2.1
+# rtD v2.3
 Real-time Derivative model. ©2020 Jerold Larson. All Rights Reserved.
 
 
-
-Visualize offsetting option positions
--
-<br><br>
-Install Requirements
+Install Requirements, Execute main.py
 -
 <br><br>
 
-Execute main.py
--
-
-
-<br><br>
-
-Adjust and update the GUI to manipulate the visual.
+Update the GUI to manipulate visual(s).
 -
 
 
