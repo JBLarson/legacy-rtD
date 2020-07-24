@@ -1,3 +1,6 @@
+#©2020 Jerold B. Larson. All Rights Reserved.
+
+
 import sys
 from tkinter import *
 import tkinter as tk
@@ -5,11 +8,11 @@ import numpy as np
 import os
 import tkinter.font as font
 
-#newer version of maine.py
-
 #range of values for the visual
 #viz_rng = np.arange(1.5,1.7,.02) #option range EUR/USD
-viz_rng = np.arange(109,110,.05) #option range USD/JPY
+#viz_rng = np.arange(109,110,.05) #option range USD/JPY
+viz_rng = np.arange(35, 46, 1) #total points range NFL
+
 
 class MyWindow:
 	def __init__(self, win):
@@ -19,16 +22,16 @@ class MyWindow:
 		myFontT = font.Font(size=20)
 		myFont_q = font.Font(size=20)
 
-		self.lblb=Label(win, text='Buy', bg='blue', fg='white') #lbl1
-		self.lbls=Label(win, text='Sell', bg='blue', fg='white') #lbl1
+		self.lblb=Label(win, text='Over', bg='blue', fg='white') #lbl1
+		self.lbls=Label(win, text='Under', bg='blue', fg='white') #lbl1
 
 
-		self.lbl1=Label(win, text='Size', bg='white', fg='black') #lbl1
-		self.lbl2=Label(win, text='Price', bg='white', fg='black')
-		self.lbl3=Label(win, text='Strike', bg='white', fg='black')
-		self.lbl4=Label(win, text='Size', bg='white', fg='black')
-		self.lbl5=Label(win, text='Price', bg='white', fg='black')
-		self.lbl6=Label(win, text='Strike', bg='white', fg='black')
+		self.lbl1=Label(win, text='Risk') #lbl1
+		self.lbl2=Label(win, text='Odds')
+		self.lbl3=Label(win, text='Score')
+		self.lbl4=Label(win, text='Risk')
+		self.lbl5=Label(win, text='Odds')
+		self.lbl6=Label(win, text='Score')
 
 		self.t1=Entry(bd=1, bg='white', fg='black')#t1
 		self.t2=Entry(bd=1, bg='white', fg='black')
@@ -38,7 +41,7 @@ class MyWindow:
 		self.t6=Entry(bd=1, bg='white', fg='black')
 
 		#simplify spacing adjustments with spacing variables.
-		t1x, label1x, label1y, label4y = 445, 365, 50, 175
+		t1x, label1x, label1y, label4y = 100, 40, 50, 175
 		
 		#spacing for 6 lbl and 6 t.
 		self.lblb.place(x=label1x-15, y=5, height=40, width=80)
@@ -68,22 +71,23 @@ class MyWindow:
 		self.lbl6['font'] = myFont
 
 		#update buttons
-		butx = 650
+		butx = 300
 		self.btn1=Button(win, text='Update\nBuy-Side') #create button, add text
-		self.b1=Button(win, text='Update\nBuy-Side', width=12, height=3, fg='green', command=self.b1rez) #connect w/ command / format
+		self.b1=Button(win, text='Update\nBuy-Side', width=9, height=3, fg='green', command=self.b1rez) #connect w/ command / format
 		self.b1['font'] = myFont
-		self.b1.place(x=butx, y=24) #spacing for buttons
+		self.b1.place(x=butx, y=52) #spacing for buttons
 
 		self.btn2=Button(win, text='Update\nSell-Side')
-		self.b2=Button(win, text='Update\nSell-Side', width=12, height=3, fg='green', command=self.s1rez)
+		self.b2=Button(win, text='Update\nSell-Side', width=9, height=3, fg='green', command=self.s1rez)
 		self.b2['font'] = myFont
 
-		self.b2.place(x=butx, y=200)
+		self.b2.place(x=butx, y=177)
 
 
 
-		#visual buttons
-		bx, by, bx2, by2 = 20, 45, 125, 200
+		bx, by, bx2, by2 = 522.5, 45, 622.5, 200
+
+
 
 
 		self.btn3=Button(win, text='Display\nPosition')
@@ -91,18 +95,18 @@ class MyWindow:
 		self.b3['font'] = myFont
 		self.b3.place(x=bx2-100, y=by)
 
-		self.btn4=Button(win, text='Display ROI')
-		self.b4=Button(win, text='Display ROI', width=9, height=3, bg='yellow', fg='blue', command=self.roi)
+		self.btn4=Button(win, text='Display\nROI')
+		self.b4=Button(win, text='Display\nROI', width=9, height=3, bg='yellow', fg='blue', command=self.roi)
 		self.b4['font'] = myFont
 		self.b4.place(x=bx2+40, y=by)
 
-		self.btn5=Button(win, text='Display ROI\nalt')
-		self.b5=Button(win, text='Display ROI\nalt', width=9, height=3, bg='yellow', fg='blue', command=self.altROI)
+		self.btn5=Button(win, text='Display\nalt ROI')
+		self.b5=Button(win, text='Display\nalt ROI', width=9, height=3, bg='yellow', fg='blue', command=self.altROI)
 		self.b5['font'] = myFont
 		self.b5.place(x=bx2-100, y=by2)
 
-		self.btn6=Button(win, text='Overview')
-		self.b6=Button(win, text='Overview', width=9, height=3, bg='yellow', fg='blue', command=self.overview)
+		self.btn6=Button(win, text='Display\nOverview')
+		self.b6=Button(win, text='Display\nOverview', width=9, height=3, bg='yellow', fg='blue', command=self.overview)
 		self.b6['font'] = myFont
 		self.b6.place(x=bx2+35, y=by2)
 
@@ -110,7 +114,11 @@ class MyWindow:
 		self.btn7=Button(win, text='Quit')
 		self.b7=Button(win, text='Quit', width=6, height=2, bg='red', fg='red', command=quit)
 		self.b7['font'] = myFont_q
-		self.b7.place(x=500, y=label4y-50)
+		self.b7.place(x=375, y=123)
+
+
+
+
 
 	def buysell(self):
 		from charts import bs3
@@ -125,32 +133,41 @@ class MyWindow:
 		from charts import altROI
 		altROI()
 
+#start of OG funcs
+
+
+
+
+
 	def quit(self):
 		quit()
-
 	def b1rez(self):
-		b1sz, b1p, b1stk=float(self.t1.get()), float(self.t2.get()), float(self.t3.get())
-		b1r=float(b1p * b1sz)
-		b1w=float(100*b1sz + (-b1r))
+		b1r, b1o, b1stk=float(self.t1.get()), float(self.t2.get()), float(self.t3.get())
+		#if b1o > 0: b1oD = (abs(b1o/100) + 1) #american odds instead of decimal
+		#else: b1oD = (100/abs(b1o) + 1)
+		#b1w=float(b1r*(b1oD-1))
+		b1w=float(b1r*(b1o-1))
 		b1_rez = [b1w if n > abs(b1stk) else -b1r for n in viz_rng]
 		with open('b1results.txt', 'w') as f:
 			for n in range(0,len(viz_rng)): print(viz_rng[n], ',', b1_rez[n], file=f)
-	
+
 	def s1rez(self):
-		s1sz, s1p, s1stk=float(self.t4.get()), float(self.t5.get()), float(self.t6.get())
-		s1r= float((100-s1p)*s1sz)
-		s1w= float(s1p*(s1sz))
+		s1r, s1o, s1stk=float(self.t4.get()), float(self.t5.get()), float(self.t6.get())
+		#if s1oD > 0: s1oD = (abs(s1o/100) + 1)
+		#else: s1oD = (100/abs(s1o) + 1)
+		#s1w=float(s1r*(s1oD-1))
+		s1w=float(s1r*(s1o-1))
 		s1_rez = [s1w if n < abs(s1stk) else -s1r for n in viz_rng]
 		with open('s1results.txt', 'w') as f:
 			for n in range(0,len(viz_rng)): print(viz_rng[n], ',', s1_rez[n], file=f)
 
 #GUI
 window=Tk() #initialize tcl/tk interpreter
-window.title('Real-Time Derivative Model v2.1')
+window.title('Real-Time Derivative v2.3')
 window.geometry("800x300-1000-1000")
 try:	
 	logo=tk.PhotoImage(file="logo2.png") 
-	w1=tk.Label(window, image=logo).pack(side="left")
+	w1=tk.Label(window, image=logo).pack(side="right")
 except:
 	label = Label(window)
 	label.img = PhotoImage(file="logo2.png")
